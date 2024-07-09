@@ -14,8 +14,16 @@ Feature: Display response and loop example
     And print 'Posts Response:', response
     
     * def posts = response
-    
-    * print 'Iterating through posts'
-    * karate.forEach(posts, function(post, index) {
-    *   print 'Post', index + 1, ':', post
-    * })
+
+    * def iterateAndPrintPosts = 
+    """
+    function(posts) {
+        var postCount = posts.length;
+        karate.log('Total posts:', postCount);
+        for (var i = 0; i < postCount; i++) {
+            karate.log('Post', i + 1, ':', posts[i]);
+        }
+    }
+    """
+
+    * call iterateAndPrintPosts(posts)
